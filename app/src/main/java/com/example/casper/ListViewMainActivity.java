@@ -1,6 +1,8 @@
 package com.example.casper;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -23,9 +25,9 @@ import java.util.List;
 public class ListViewMainActivity extends AppCompatActivity {
 
     public static final int CONTEXT_MENU_DELETE = 1;
-    public static final int CONTEXT_MENU_ADD = 2;
-    public static final int CONTEXT_MENU_ADDNEW = CONTEXT_MENU_ADD;
-    public static final int CONTEXT_MENU_ABOUT = 3;
+    public static final int CONTEXT_MENU_ADDNEW = CONTEXT_MENU_DELETE +1;
+    public static final int CONTEXT_MENU_ABOUT= CONTEXT_MENU_ADDNEW +1;
+
     private List<Book> listBooks = new ArrayList<>();
     ListView listViewBooks;
     BookAdapter bookAdapter;
@@ -68,13 +70,33 @@ public class ListViewMainActivity extends AppCompatActivity {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case CONTEXT_MENU_DELETE:
-                AdapterView.AdapterContextMenuInfo info=(AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-                listBooks.remove(info.position);
-                bookAdapter.notifyDataSetChanged();
-                Toast.makeText(ListViewMainActivity.this,"删除成功",Toast.LENGTH_LONG).show();
+                AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+                final int itemPosition = menuInfo.position;
+                new android.app.AlertDialog.Builder(this)
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setTitle("询问")
+                        .setMessage("你确定要删除这条吗？")
+                        .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                listBooks.remove(itemPosition);
+                                bookAdapter.notifyDataSetChanged();
+                                Toast.makeText(ListViewMainActivity.this, "删除成功！", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                            }
+                        })
+                        .create().show();
                 break;
+
+
+
             case CONTEXT_MENU_ADDNEW:
-                getListBooks().add(new Book("无名书籍",R.drawable.book_no_name));
+                final int insertPosition = ((AdapterView.AdapterContextMenuInfo) item.getMenuInfo()).position;
+                getListBooks().add(insertPosition,new Book("无名书籍",R.drawable.book_no_name));
                 bookAdapter.notifyDataSetChanged();
                 break;
             case CONTEXT_MENU_ABOUT:
