@@ -1,6 +1,8 @@
-package com.example.casper;
+package com.example.zzy.data.model;
 
-public class Book {
+import java.io.Serializable;
+
+public class Book implements Serializable {
     private String title;
     private int coverResourceId;
 

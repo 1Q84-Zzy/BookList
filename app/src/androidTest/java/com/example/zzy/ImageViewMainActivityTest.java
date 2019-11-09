@@ -1,4 +1,4 @@
-package com.example.casper;
+package com.example.zzy;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -7,6 +7,9 @@ import androidx.test.espresso.ViewInteraction;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
+
+import com.example.casper.R;
+import com.example.zzy.ImageViewMainActivity;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;

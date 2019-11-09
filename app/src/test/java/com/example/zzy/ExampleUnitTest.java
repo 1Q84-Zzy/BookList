@@ -1,4 +1,4 @@
-package com.example.casper;
+package com.example.zzy;
 
 import org.junit.Test;
 

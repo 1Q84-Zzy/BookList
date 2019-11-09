@@ -1,10 +1,14 @@
-package com.example.casper;
+package com.example.zzy;
 
 import android.content.Context;
 
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
+
+import com.example.casper.R;
+import com.example.zzy.TextViewMainActivity;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -37,7 +41,7 @@ public class TextViewMainActivityTest {
 
     @Test
     public void testTextView() {
-        onView(withId(R.id.textViewHelloWorld))
+        onView(ViewMatchers.withId(R.id.textViewHelloWorld))
                 .check(matches(withText("Hello World")))
                 .check(matches(isDisplayed()));
     }

@@ -1,4 +1,4 @@
-package com.example.casper;
+package com.example.zzy;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,6 +20,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.casper.R;
+import com.example.zzy.data.BookSaver;
+import com.example.zzy.data.model.Book;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +39,16 @@ public class ListViewMainActivity extends AppCompatActivity {
     private List<Book> listBooks = new ArrayList<>();
     ListView listViewBooks;
     BookAdapter bookAdapter;
+    BookSaver bookSaver;
 
     public ListViewMainActivity() {
         super();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bookSaver.save();//程序退出时，调用该方法保存数据
     }
 
     @Override
@@ -45,7 +56,10 @@ public class ListViewMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view_main);
 
-        init();
+        bookSaver=new BookSaver(this);
+        listBooks=bookSaver.load();
+        if(listBooks.size()==0)
+            init();
         listViewBooks = this.findViewById(R.id.list_view_books);
 
         bookAdapter = new BookAdapter(ListViewMainActivity.this, R.layout.list_view_item_book, getListBooks());

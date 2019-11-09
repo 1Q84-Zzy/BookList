@@ -1,10 +1,12 @@
-package com.example.casper;
+package com.example.zzy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.widget.TextView;
+
+import com.example.casper.R;
 
 public class TextViewMainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.example.casper;
+package com.example.zzy;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,6 +6,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.casper.R;
 
 public class ImageViewMainActivity extends AppCompatActivity {
 
