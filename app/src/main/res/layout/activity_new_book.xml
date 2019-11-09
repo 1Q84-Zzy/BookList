@@ -12,10 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="59dp"
         android:layout_marginLeft="59dp"
-        android:layout_marginTop="190dp"
+        android:layout_marginTop="120dp"
         android:text="确定"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_book_price" />
+        app:layout_constraintTop_toBottomOf="@+id/text_view_book_title" />
 
     <Button
         android:id="@+id/button_cancel"
@@ -31,10 +31,10 @@
         android:id="@+id/text_view_book_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="80dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginTop="90dp"
-        android:text="书名"
+        android:layout_marginStart="72dp"
+        android:layout_marginLeft="72dp"
+        android:layout_marginTop="180dp"
+        android:text="图书名称"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,21 +50,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/text_view_book_title" />
 
-    <TextView
-        android:id="@+id/text_view_book_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="@+id/text_view_book_title"
-        app:layout_constraintTop_toBottomOf="@+id/text_view_book_title" />
-
-    <EditText
-        android:id="@+id/edit_text_book_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="numberDecimal"
-        app:layout_constraintStart_toStartOf="@+id/edit_text_book_title"
-        app:layout_constraintTop_toTopOf="@+id/text_view_book_price" />
 </androidx.constraintlayout.widget.ConstraintLayout>

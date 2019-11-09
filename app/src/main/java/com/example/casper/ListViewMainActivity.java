@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
@@ -26,7 +27,10 @@ public class ListViewMainActivity extends AppCompatActivity {
 
     public static final int CONTEXT_MENU_DELETE = 1;
     public static final int CONTEXT_MENU_ADDNEW = CONTEXT_MENU_DELETE +1;
-    public static final int CONTEXT_MENU_ABOUT= CONTEXT_MENU_ADDNEW +1;
+    public static final int CONTEXT_MENU_UPDATE= CONTEXT_MENU_ADDNEW +1;
+    public static final int CONTEXT_MENU_ABOUT= CONTEXT_MENU_UPDATE +1;
+    public static final int REQUEST_CODE_NEW_BOOK = 901;
+    public static final int REQUEST_CODE_UPDATE_BOOK = 902;
 
     private List<Book> listBooks = new ArrayList<>();
     ListView listViewBooks;
@@ -60,10 +64,39 @@ public class ListViewMainActivity extends AppCompatActivity {
             menu.setHeaderTitle(listBooks.get(info.position).getTitle());
             //设置内容 参数1为分组，参数2对应条目的id，参数3是指排列顺序，默认排列即可
             menu.add(0, CONTEXT_MENU_DELETE, 0, "删除");
-            menu.add(0, CONTEXT_MENU_ADDNEW, 0, "添加");
+            menu.add(0, CONTEXT_MENU_ADDNEW, 0, "新建");
+            menu.add(0, CONTEXT_MENU_UPDATE, 0, "修改");
             menu.add(0, CONTEXT_MENU_ABOUT, 0, "关于...");
         }
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case REQUEST_CODE_NEW_BOOK:
+                if (resultCode == RESULT_OK) {
+                    String title = data.getStringExtra("title");
+                    int insertPosition = data.getIntExtra("insert_position",0);
+                    getListBooks().add(insertPosition,new Book(title,R.drawable.book_no_name));
+                    bookAdapter.notifyDataSetChanged();
+                    Toast.makeText(this, "新建成功", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case REQUEST_CODE_UPDATE_BOOK:
+                if (resultCode == RESULT_OK) {
+                    int insertPosition = data.getIntExtra("insert_position", 0);
+                    Book bookAtPosition=getListBooks().get(insertPosition);
+
+                    bookAtPosition.setTitle(data.getStringExtra("title"));
+                    bookAdapter.notifyDataSetChanged();
+
+                    Toast.makeText(this, "修改成功", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
     }
 
     @Override
@@ -92,12 +125,23 @@ public class ListViewMainActivity extends AppCompatActivity {
                         .create().show();
                 break;
 
-
-
             case CONTEXT_MENU_ADDNEW:
+                int insertposition=((AdapterView.AdapterContextMenuInfo)item.getMenuInfo()).position;
+                Intent intent = new Intent(this,NewBookActivity.class);
+                intent.putExtra("title",listBooks.get(insertposition).getTitle());
+                intent.putExtra("insert_position",((AdapterView.AdapterContextMenuInfo)item.getMenuInfo()).position);
+                startActivityForResult(intent, REQUEST_CODE_NEW_BOOK);
+                /*
                 final int insertPosition = ((AdapterView.AdapterContextMenuInfo) item.getMenuInfo()).position;
                 getListBooks().add(insertPosition,new Book("无名书籍",R.drawable.book_no_name));
-                bookAdapter.notifyDataSetChanged();
+                bookAdapter.notifyDataSetChanged();*/
+                break;
+            case  CONTEXT_MENU_UPDATE:
+                int position=((AdapterView.AdapterContextMenuInfo)item.getMenuInfo()).position;
+                Intent intent2 = new Intent(this,NewBookActivity.class);
+                intent2.putExtra("title",listBooks.get(position).getTitle());
+                intent2.putExtra("insert_position",position);
+                startActivityForResult(intent2, REQUEST_CODE_UPDATE_BOOK);
                 break;
             case CONTEXT_MENU_ABOUT:
                 Toast.makeText(ListViewMainActivity.this,"图书列表v1.0,code by ZhangZiyi",Toast.LENGTH_LONG).show();
