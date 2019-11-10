@@ -71,7 +71,7 @@ public class ListViewMainActivity extends AppCompatActivity {
         ArrayList<Fragment> datas = new ArrayList<Fragment>();
         datas.add(new BookListFragment(bookAdapter));
         datas.add(new WebViewFragment());
-        datas.add(new WebViewFragment());
+        datas.add(new MapViewFragment());
         myPageAdapter.setData(datas);
 
         ArrayList<String> titles = new ArrayList<String>();
