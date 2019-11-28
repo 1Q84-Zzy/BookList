@@ -77,7 +77,7 @@ public class ListViewMainActivity extends AppCompatActivity {
         ArrayList<String> titles = new ArrayList<String>();
         titles.add("图书");
         titles.add("新闻");//测试
-        titles.add("卖家");
+        titles.add("卖家");//测试
         myPageAdapter.setTitles(titles);
 
 
