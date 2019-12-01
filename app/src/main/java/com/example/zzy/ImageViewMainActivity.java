@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.casper.R;
 
+//import com.example.casper.R;
+
 public class ImageViewMainActivity extends AppCompatActivity {
 
     private Button buttonPrevious, buttonNext;
